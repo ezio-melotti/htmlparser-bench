@@ -6,6 +6,7 @@ import time
 try:
     from html.parser import HTMLParser
     IS_PY3K = True
+    IS_PY35K = sys.version_info >= (3, 5)
 except ImportError:
     from HTMLParser import HTMLParser
     IS_PY3K = False
@@ -82,7 +83,7 @@ class HTMLParserHandler(BenchmarkHandler):
         parser.close()
 
 
-if IS_PY3K:
+if IS_PY3K and not IS_PY35K:
     Benchmark(HTMLParserHandler(strict=True))
     Benchmark(HTMLParserHandler(strict=False))
 else:
